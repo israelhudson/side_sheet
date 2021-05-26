@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Side Sheet',
-      home: MyHomePage(title: 'Side Sheet'),
+      home: MyHomePage(title: 'Side Sheet Example'),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -34,14 +34,26 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               ElevatedButton(
                   onPressed: () =>
-                      SheetSide(
+                      SheetSide.right(
                           body: Text("Body"),
-                      ).show(context: context),
-                  child: Text('OPEN SIDE SHEET'))
+                          context: context
+                      ),
+                  child: Text('OPEN RIGHT SIDE SHEET')),
+
+              SizedBox(height: 10),
+
+              ElevatedButton(
+                  onPressed: () =>
+                      SheetSide.left(
+                          body: Text("Body"),
+                          context: context
+                      ),
+                  child: Text('OPEN LEFT SIDE SHEET')),
             ],
           ),
         ),

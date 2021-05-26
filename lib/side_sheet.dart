@@ -4,24 +4,33 @@ import 'package:flutter/material.dart';
 
 class SheetSide {
   final Widget body;
-  final bool rightSide;
+  final BuildContext context;
 
-  SheetSide({
+  SheetSide.right({
     required this.body,
-    this.rightSide = true,
-  });
+    required this.context
+  }){
+    showSheetSide(rightSide: true);
+  }
 
-  void show({required BuildContext? context}) async {
-    final sheet = await showGeneralDialog(
+  SheetSide.left({
+    required this.body,
+    required this.context
+  }){
+    showSheetSide(rightSide: false);
+  }
+
+  void showSheetSide({required rightSide}) {
+    showGeneralDialog(
       barrierLabel: "Sheet Horizontal",
       barrierDismissible: true,
       barrierColor: Colors.black.withOpacity(0.3),
       transitionDuration: Duration(milliseconds: 300),
-      context: context!,
+      context: this.context,
       pageBuilder: (context, animation1, animation2) {
         return Align(
           alignment:
-              (this.rightSide ? Alignment.centerRight : Alignment.centerLeft),
+          (rightSide ? Alignment.centerRight : Alignment.centerLeft),
           child: Material(
             elevation: 15,
             color: Colors.transparent,
@@ -36,8 +45,8 @@ class SheetSide {
       transitionBuilder: (context, animation1, animation2, child) {
         return SlideTransition(
           position:
-              Tween(begin: Offset((this.rightSide ? 1 : -1), 0), end: Offset(0, 0))
-                  .animate(animation1),
+          Tween(begin: Offset((rightSide ? 1 : -1), 0), end: Offset(0, 0))
+              .animate(animation1),
           child: child,
         );
       },
