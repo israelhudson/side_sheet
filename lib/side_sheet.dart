@@ -2,101 +2,45 @@ library side_sheet;
 
 import 'package:flutter/material.dart';
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
-
-class SheetHorizontal {
-  final Widget title;
+class SheetSide {
   final Widget body;
-  final Widget? actionIcon;
-  final Function? onTapAction;
+  final bool rightSide;
 
-  SheetHorizontal(
-      {required this.title,
-        required this.body,
-        this.actionIcon,
-        this.onTapAction});
+  SheetSide({
+    required this.body,
+    this.rightSide = true,
+  });
 
-  void show({
-    required BuildContext? context,
-    bool rightSide = true,
-  }) async {
+  void show({required BuildContext? context}) async {
     final sheet = await showGeneralDialog(
-      barrierLabel: "Menu Horizontal",
+      barrierLabel: "Sheet Horizontal",
       barrierDismissible: true,
-      barrierColor: Colors.black.withOpacity(0.5),
+      barrierColor: Colors.black.withOpacity(0.3),
       transitionDuration: Duration(milliseconds: 300),
       context: context!,
       pageBuilder: (context, animation1, animation2) {
         return Align(
-          alignment: (rightSide ? Alignment.centerRight : Alignment.centerLeft),
+          alignment:
+              (this.rightSide ? Alignment.centerRight : Alignment.centerLeft),
           child: Material(
+            elevation: 15,
             color: Colors.transparent,
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15),
-                bottomLeft: Radius.circular(15),
-              ),
-              child: Container(
+            child: Container(
                 color: Colors.white,
                 height: double.infinity,
-                width: MediaQuery.of(context).size.width / 1.27,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Stack(
-                          children: [
-                            Align(alignment: Alignment.topLeft, child: title),
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: actionIcon ??
-                                  ClipOval(
-                                    child: Material(
-                                      color: Colors.grey[350], // button color
-                                      child: InkWell(
-                                        splashColor: Colors.grey,
-                                        onTap: () {
-                                          if (onTapAction != null) {
-                                            onTapAction!();
-                                          } else {
-                                            Navigator.pop(context, 'back');
-                                          }
-                                        }, // inkwell color
-                                        child: Container(
-                                            width: 28,
-                                            height: 28,
-                                            child: Icon(Icons.close)),
-                                      ),
-                                    ),
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      body,
-                    ],
-                  ),
-                ),
-              ),
-            ),
+                width: MediaQuery.of(context).size.width / 1.4,
+                child: body),
           ),
         );
       },
       transitionBuilder: (context, animation1, animation2, child) {
         return SlideTransition(
           position:
-          Tween(begin: Offset((rightSide ? 1 : -1), 0), end: Offset(0, 0))
-              .animate(animation1),
+              Tween(begin: Offset((this.rightSide ? 1 : -1), 0), end: Offset(0, 0))
+                  .animate(animation1),
           child: child,
         );
       },
     );
-
-    print("result " + sheet.toString());
   }
 }
