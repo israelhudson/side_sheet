@@ -1,3 +1,7 @@
+## 0.0.2
+
+* Doc update.
+
 ## 0.0.1
 
-* TODO: Initial release for dev tests.
+* Initial release for dev tests.
