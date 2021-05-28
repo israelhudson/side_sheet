@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               ElevatedButton(
                   onPressed: () =>
-                      SheetSide.right(
+                      SideSheet.right(
                           body: Text("Body"),
                           context: context
                       ),
@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
               ElevatedButton(
                   onPressed: () =>
-                      SheetSide.left(
+                      SideSheet.left(
                           body: Text("Body"),
                           context: context
                       ),

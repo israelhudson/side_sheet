@@ -1,3 +1,7 @@
+## 0.0.3
+
+* Change class SideSheet.
+
 ## 0.0.2
 
 * Doc update.

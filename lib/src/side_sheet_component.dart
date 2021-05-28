@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 
-class SheetSide {
+class SideSheet {
   final Widget body;
   final BuildContext context;
 
-  SheetSide.right({
-    required this.body,
-    required this.context
-  }){
+  SideSheet.right({required this.body, required this.context}) {
     showSheetSide(rightSide: true);
   }
 
-  SheetSide.left({
-    required this.body,
-    required this.context
-  }){
+  SideSheet.left({required this.body, required this.context}) {
     showSheetSide(rightSide: false);
   }
 
@@ -27,8 +21,7 @@ class SheetSide {
       context: this.context,
       pageBuilder: (context, animation1, animation2) {
         return Align(
-          alignment:
-          (rightSide ? Alignment.centerRight : Alignment.centerLeft),
+          alignment: (rightSide ? Alignment.centerRight : Alignment.centerLeft),
           child: Material(
             elevation: 15,
             color: Colors.transparent,
@@ -43,8 +36,8 @@ class SheetSide {
       transitionBuilder: (context, animation1, animation2, child) {
         return SlideTransition(
           position:
-          Tween(begin: Offset((rightSide ? 1 : -1), 0), end: Offset(0, 0))
-              .animate(animation1),
+              Tween(begin: Offset((rightSide ? 1 : -1), 0), end: Offset(0, 0))
+                  .animate(animation1),
           child: child,
         );
       },
