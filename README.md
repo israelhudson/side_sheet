@@ -23,7 +23,7 @@ ElevatedButton(
             body: Text("Body"),
                 context: context
         ),
-    child: Text('OPEN RIGHT SIDE SHEET')),          
+    child: Text('OPEN LEFT SIDE SHEET')),          
 ```
 Close sheet in body
 
