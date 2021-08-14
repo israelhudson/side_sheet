@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Side Sheet',
+      theme: ThemeData(primarySwatch: Colors.blueGrey),
       home: MyHomePage(title: 'Side Sheet Example'),
       debugShowCheckedModeBanner: false,
     );
@@ -25,6 +26,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String text = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,21 +42,33 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               ElevatedButton(
                   onPressed: () =>
-                      SideSheet.right(
-                          body: Text("Body"),
-                          context: context
-                      ),
+                      SideSheet.right(body: Text("Body"), context: context),
                   child: Text('OPEN RIGHT SIDE SHEET')),
-
               SizedBox(height: 10),
-
               ElevatedButton(
                   onPressed: () =>
-                      SideSheet.left(
-                          body: Text("Body"),
-                          context: context
-                      ),
+                      SideSheet.left(body: Text("Body"), context: context),
                   child: Text('OPEN LEFT SIDE SHEET')),
+              ElevatedButton(
+                  onPressed: () async {
+                    // SideSheet
+                    //     .left(body: Text("Bodyss"), context: context)
+                    //     .then((value) {
+                    //   setState(() {
+                    //     text = value;
+                    //   });
+                    //   print(text);
+                    // });
+                    SideSheet.left(body: FlutterLogo(), context: context);
+                    // final data = await SideSheet.right(
+                    //     body: Text("Body"), context: context);
+
+                    // setState(() {
+                    //   text = data;
+                    // });
+                  },
+                  child: Text('OPEN LEFT SIDE SHEET')),
+              Text(text)
             ],
           ),
         ),
