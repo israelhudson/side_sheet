@@ -23,8 +23,38 @@ ElevatedButton(
             body: Text("Body"),
                 context: context
         ),
-    child: Text('OPEN LEFT SIDE SHEET')),          
+    child: Text('OPEN LEFT SIDE SHEET')),
 ```
+
+With return arguments
+
+```dart
+ElevatedButton(
+    onPressed: () async {
+      final data = await SideSheet.left(
+            body: IconButton(icon: Icon(Icons.close),
+                      onPressed: () => Navigator.pop(context, 'Data Returns Left')),
+            context: context);
+
+      print(data);
+    },
+    child: Text('OPEN LEFT SIDE SHEET WITH RETURN DATA')
+),
+
+ElevatedButton(
+    onPressed: () async {
+      final data = await SideSheet.right(
+            body: IconButton(
+                      icon: Icon(Icons.close),
+                      onPressed: () => Navigator.pop(context, 'Data Returns Right')),
+            context: context);
+
+      print(data);
+    },
+    child: Text('OPEN RIGHT SIDE SHEET WITH RETURN DATA')
+),    
+```
+
 Close sheet in body
 
 ```dart
