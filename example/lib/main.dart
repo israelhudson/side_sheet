@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(height: 20),
               ElevatedButton(
                   onPressed: () async {
-                    final data = await SideSheet.right(
+                    final data = await SideSheet.left(
                         body: bodyWithReturnArgs(context), context: context);
 
                     setState(() {
