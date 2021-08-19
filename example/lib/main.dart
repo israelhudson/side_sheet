@@ -42,18 +42,27 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               ElevatedButton(
                   onPressed: () =>
-                      SideSheet.right(body: Text("Body"), context: context),
+                      SideSheet.right(
+                          body: Text("Body"),
+                          context: context
+                      ),
                   child: Text('OPEN RIGHT SIDE SHEET')),
               SizedBox(height: 10),
+
               ElevatedButton(
                   onPressed: () =>
-                      SideSheet.left(body: Text("Body"), context: context),
+                      SideSheet.left(
+                          body: Text("Body"),
+                          context: context
+                      ),
                   child: Text('OPEN LEFT SIDE SHEET')),
               SizedBox(height: 20),
+
               ElevatedButton(
                   onPressed: () async {
                     final data = await SideSheet.left(
-                        body: bodyWithReturnArgs(context), context: context);
+                        body: bodyWithReturnArgs(context),
+                        context: context);
 
                     setState(() {
                       text = data;
@@ -61,10 +70,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   child: Text('OPEN LEFT SIDE SHEET WITH RETURN DATA')),
               SizedBox(height: 10),
+
               ElevatedButton(
                   onPressed: () async {
                     final data = await SideSheet.right(
-                        body: bodyWithReturnArgs(context), context: context);
+                        body: IconButton(
+                            icon: Icon(Icons.close),
+                            onPressed: () => Navigator.pop(context, 'Data oitrhatpoihotha')),
+                        context: context);
 
                     setState(() {
                       text = data;
@@ -72,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   child: Text('OPEN RIGHT SIDE SHEET WITH RETURN DATA')),
               SizedBox(height: 10),
+
               Text('Arguments: $text')
             ],
           ),
