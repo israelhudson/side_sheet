@@ -1,35 +1,75 @@
 import 'package:flutter/material.dart';
 
 class SideSheet {
-  final Widget body;
-  final BuildContext context;
+  static Future<String> left(
+      {required Widget body,
+      required BuildContext context,
+      String barrierLabel: "Side Sheet",
+      bool barrierDismissible: true,
+      Color barrierColor = const Color(0xFF66000000),
+      Duration transitionDuration = const Duration(milliseconds: 300)}) async {
+    dynamic data = await _showSheetSide(
+        body: body,
+        rightSide: false,
+        context: context,
+        barrierLabel: barrierLabel,
+        barrierDismissible: barrierDismissible,
+        barrierColor: barrierColor,
+        transitionDuration: transitionDuration);
+    if (data == null) return '';
 
-  SideSheet.right({required this.body, required this.context}) {
-    showSheetSide(rightSide: true);
+    return data;
   }
 
-  SideSheet.left({required this.body, required this.context}) {
-    showSheetSide(rightSide: false);
+  static Future<String> right(
+      {required Widget body,
+      required BuildContext context,
+      String barrierLabel: "Side Sheet",
+      bool barrierDismissible: true,
+      Color barrierColor = const Color(0xFF66000000),
+      Duration transitionDuration = const Duration(milliseconds: 300)}) async {
+    dynamic data = await _showSheetSide(
+        body: body,
+        rightSide: true,
+        context: context,
+        barrierLabel: barrierLabel,
+        barrierDismissible: barrierDismissible,
+        barrierColor: barrierColor,
+        transitionDuration: transitionDuration);
+    if (data == null) return '';
+
+    return data;
   }
 
-  void showSheetSide({required rightSide}) {
-    showGeneralDialog(
-      barrierLabel: "Sheet Horizontal",
-      barrierDismissible: true,
-      barrierColor: Colors.black.withOpacity(0.3),
-      transitionDuration: Duration(milliseconds: 300),
-      context: this.context,
+  static _showSheetSide({
+    required Widget body,
+    required bool rightSide,
+    required BuildContext context,
+    required String barrierLabel,
+    required bool barrierDismissible,
+    required Color barrierColor,
+    required Duration transitionDuration,
+  }) {
+    return showGeneralDialog(
+      barrierLabel: barrierLabel,
+      barrierDismissible: barrierDismissible,
+      barrierColor: barrierColor,
+      transitionDuration: transitionDuration,
+      context: context,
       pageBuilder: (context, animation1, animation2) {
-        return Align(
-          alignment: (rightSide ? Alignment.centerRight : Alignment.centerLeft),
-          child: Material(
-            elevation: 15,
-            color: Colors.transparent,
-            child: Container(
-                color: Colors.white,
-                height: double.infinity,
-                width: MediaQuery.of(context).size.width / 1.4,
-                child: body),
+        return SafeArea(
+          child: Align(
+            alignment:
+                (rightSide ? Alignment.centerRight : Alignment.centerLeft),
+            child: Material(
+              elevation: 15,
+              color: Colors.transparent,
+              child: Container(
+                  color: Colors.white,
+                  height: double.infinity,
+                  width: MediaQuery.of(context).size.width / 1.4,
+                  child: body),
+            ),
           ),
         );
       },
