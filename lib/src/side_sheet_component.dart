@@ -22,7 +22,7 @@ class SideSheet {
     required Widget body,
     required bool rightSide,
     required BuildContext context,
-    String barrierLabel: "Sheet Horizontal",
+    String barrierLabel: "Side Sheet",
     bool barrierDismissible: true,
     Color barrierColor = const Color(0xFF66000000),
     Duration transitionDuration = const Duration(milliseconds: 300),
@@ -34,26 +34,18 @@ class SideSheet {
       transitionDuration: transitionDuration,
       context: context,
       pageBuilder: (context, animation1, animation2) {
-        return Align(
-          alignment: (rightSide ? Alignment.centerRight : Alignment.centerLeft),
-          child: Material(
-            elevation: 15,
-            color: Colors.transparent,
-            child: Container(
-                color: Colors.white,
-                height: double.infinity,
-                width: MediaQuery.of(context).size.width / 2.4,
-                child: Column(
-                  children: [
-                    body,
-                    IconButton(
-                        icon: Icon(Icons.close),
-                        onPressed: () {
-                          Navigator.pop(context, 'ssss');
-                          //Navigator.pop(context);
-                        })
-                  ],
-                )),
+        return SafeArea(
+          child: Align(
+            alignment: (rightSide ? Alignment.centerRight : Alignment.centerLeft),
+            child: Material(
+              elevation: 15,
+              color: Colors.transparent,
+              child: Container(
+                  color: Colors.white,
+                  height: double.infinity,
+                  width: MediaQuery.of(context).size.width / 1.4,
+                  child: body),
+            ),
           ),
         );
       },

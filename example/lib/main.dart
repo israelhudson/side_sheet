@@ -26,7 +26,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String text = '';
+  String text = 'no data';
 
   @override
   Widget build(BuildContext context) {
@@ -49,30 +49,48 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () =>
                       SideSheet.left(body: Text("Body"), context: context),
                   child: Text('OPEN LEFT SIDE SHEET')),
+              SizedBox(height: 20),
               ElevatedButton(
                   onPressed: () async {
-                    // SideSheet
-                    //     .left(body: Text("Bodyss"), context: context)
-                    //     .then((value) {
-                    //   setState(() {
-                    //     text = value;
-                    //   });
-                    //   print(text);
-                    // });
-                    SideSheet.left(body: FlutterLogo(), context: context);
-                    // final data = await SideSheet.right(
-                    //     body: Text("Body"), context: context);
+                    final data = await SideSheet.right(
+                        body: bodyWithReturnArgs(context), context: context);
 
-                    // setState(() {
-                    //   text = data;
-                    // });
+                    setState(() {
+                      text = data;
+                    });
                   },
-                  child: Text('OPEN LEFT SIDE SHEET')),
-              Text(text)
+                  child: Text('OPEN LEFT SIDE SHEET WITH RETURN DATA')),
+              SizedBox(height: 10),
+              ElevatedButton(
+                  onPressed: () async {
+                    final data = await SideSheet.right(
+                        body: bodyWithReturnArgs(context), context: context);
+
+                    setState(() {
+                      text = data;
+                    });
+                  },
+                  child: Text('OPEN RIGHT SIDE SHEET WITH RETURN DATA')),
+              SizedBox(height: 10),
+              Text('Arguments: $text')
             ],
           ),
         ),
       ),
     );
   }
+}
+
+Widget bodyWithReturnArgs(context) {
+  return Container(
+    alignment: Alignment.topCenter,
+    child: Column(
+      children: [
+        IconButton(
+            icon: Icon(Icons.close),
+            onPressed: () => Navigator.pop(context, 'Data Returns')),
+        Text('Body')
+      ],
+    ),
+  );
 }
