@@ -1,3 +1,6 @@
+## 1.0.1
+* Remove SafeArea. Now try insert SafeArea into body param.
+
 ## 1.0.0
 
 * Data returns when close sheet.

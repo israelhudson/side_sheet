@@ -57,19 +57,17 @@ class SideSheet {
       transitionDuration: transitionDuration,
       context: context,
       pageBuilder: (context, animation1, animation2) {
-        return SafeArea(
-          child: Align(
-            alignment:
-                (rightSide ? Alignment.centerRight : Alignment.centerLeft),
-            child: Material(
-              elevation: 15,
-              color: Colors.transparent,
-              child: Container(
-                  color: Colors.white,
-                  height: double.infinity,
-                  width: MediaQuery.of(context).size.width / 1.4,
-                  child: body),
-            ),
+        return Align(
+          alignment:
+              (rightSide ? Alignment.centerRight : Alignment.centerLeft),
+          child: Material(
+            elevation: 15,
+            color: Colors.transparent,
+            child: Container(
+                color: Colors.white,
+                height: double.infinity,
+                width: MediaQuery.of(context).size.width / 1.4,
+                child: body),
           ),
         );
       },
