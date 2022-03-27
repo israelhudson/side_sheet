@@ -26,6 +26,29 @@ ElevatedButton(
     child: Text('OPEN LEFT SIDE SHEET')),
 ```
 
+Custom Width Side Sheet:
+
+```dart
+ElevatedButton(
+    onPressed: () =>
+        SideSheet.right(
+            context: context
+            width: MediaQuery.of(context).size.width * 0.3,
+            body: Text("Body"),
+        ),
+    child: Text('OPEN RIGHT SIDE SHEET WITH CUSTOM WIDTH')),
+
+
+ElevatedButton(
+    onPressed: () =>
+        SideSheet.left(
+            context: context
+            width: MediaQuery.of(context).size.width * 0.3,
+            body: Text("Body"),
+        ),
+    child: Text('OPEN LEFT SIDE SHEET WITH CUSTOM WIDTH')),
+```
+
 With return arguments
 
 ```dart
