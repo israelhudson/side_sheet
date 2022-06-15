@@ -4,12 +4,14 @@ class SideSheet {
   static Future<String> left(
       {required Widget body,
       required BuildContext context,
+      double? width,
       String barrierLabel: "Side Sheet",
       bool barrierDismissible: true,
       Color barrierColor = const Color(0xFF66000000),
       Duration transitionDuration = const Duration(milliseconds: 300)}) async {
     dynamic data = await _showSheetSide(
         body: body,
+        width: width,
         rightSide: false,
         context: context,
         barrierLabel: barrierLabel,
@@ -24,12 +26,14 @@ class SideSheet {
   static Future<String> right(
       {required Widget body,
       required BuildContext context,
+      double? width,
       String barrierLabel: "Side Sheet",
       bool barrierDismissible: true,
       Color barrierColor = const Color(0xFF66000000),
       Duration transitionDuration = const Duration(milliseconds: 300)}) async {
     dynamic data = await _showSheetSide(
         body: body,
+        width: width,
         rightSide: true,
         context: context,
         barrierLabel: barrierLabel,
@@ -44,6 +48,7 @@ class SideSheet {
   static _showSheetSide({
     required Widget body,
     required bool rightSide,
+    double? width,
     required BuildContext context,
     required String barrierLabel,
     required bool barrierDismissible,
@@ -58,15 +63,14 @@ class SideSheet {
       context: context,
       pageBuilder: (context, animation1, animation2) {
         return Align(
-          alignment:
-              (rightSide ? Alignment.centerRight : Alignment.centerLeft),
+          alignment: (rightSide ? Alignment.centerRight : Alignment.centerLeft),
           child: Material(
             elevation: 15,
             color: Colors.transparent,
             child: Container(
                 color: Colors.white,
                 height: double.infinity,
-                width: MediaQuery.of(context).size.width / 1.4,
+                width: width ?? MediaQuery.of(context).size.width / 1.4,
                 child: body),
           ),
         );
