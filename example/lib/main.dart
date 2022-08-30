@@ -73,8 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     final data = await SideSheet.right(
                         body: IconButton(
                             icon: Icon(Icons.close),
-                            onPressed: () =>
-                                Navigator.pop(context, 'Data oitrhatpoihotha')),
+                            onPressed: () => Navigator.pop(
+                                context, 'Data returns from right side sheet')),
                         context: context);
 
                     setState(() {
@@ -99,7 +99,8 @@ Widget bodyWithReturnArgs(context) {
       children: [
         IconButton(
             icon: Icon(Icons.close),
-            onPressed: () => Navigator.pop(context, 'Data Returns')),
+            onPressed: () =>
+                Navigator.pop(context, 'Data returns from left side sheet')),
         Text('Body')
       ],
     ),

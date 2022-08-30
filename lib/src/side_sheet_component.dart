@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SideSheet {
-  static Future<String> left(
+  static Future<dynamic> left(
       {required Widget body,
       required BuildContext context,
       double? width,
@@ -23,7 +23,7 @@ class SideSheet {
     return data;
   }
 
-  static Future<String> right(
+  static Future<dynamic> right(
       {required Widget body,
       required BuildContext context,
       double? width,
