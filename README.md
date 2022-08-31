@@ -1,5 +1,5 @@
 # side_sheet
- a flutter package for implementing of side sheets
+A flutter package for implementing of side sheets
 
 A sample. font: https://material.io/components/sheets-side#usage
 
