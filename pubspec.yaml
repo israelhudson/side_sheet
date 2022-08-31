@@ -1,6 +1,6 @@
 name: side_sheet
-description: Package for implementing of side sheets
-version: 1.0.1
+description: Package for implementation of side sheets for all platforms and responsive UI.
+version: 1.0.3
 homepage: https://github.com/israelhudson/side_sheet
 
 environment:

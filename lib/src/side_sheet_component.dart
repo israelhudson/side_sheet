@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
 
 class SideSheet {
-  static Future<String> left(
-      {required Widget body,
+  /// Open Left side sheet
+  /// ```dart
+  ///onPressed: () => SideSheet.left(body: Text("Body"), context: context)
+  /// ```
+  static Future<dynamic> left(
+      {
+
+      ///Use this to pass any widget you want to display in the side sheet
+      required Widget body,
       required BuildContext context,
+
+      /// Use this to set the width of the side sheet
       double? width,
       String barrierLabel: "Side Sheet",
+
+      /// Use barrierDismissible to dismiss the side sheet by tapping outside of it
       bool barrierDismissible: true,
+
+      /// Use barrierColor to set the outside color of the side sheet when opened
       Color barrierColor = const Color(0xFF66000000),
+
+      /// Use transitionDuration to set the duration of the animation when the side sheet is opened or closed
       Duration transitionDuration = const Duration(milliseconds: 300)}) async {
     dynamic data = await _showSheetSide(
         body: body,
@@ -23,13 +38,28 @@ class SideSheet {
     return data;
   }
 
-  static Future<String> right(
-      {required Widget body,
+  /// Open Right side sheet
+  /// ```dart
+  ///onPressed: () => SideSheet.right(body: Text("Body"), context: context)
+  /// ```
+  static Future<dynamic> right(
+      {
+
+      ///Use this to pass any widget you want to display in the side sheet
+      required Widget body,
       required BuildContext context,
+
+      /// Use this to set the width of the side sheet
       double? width,
       String barrierLabel: "Side Sheet",
+
+      /// Use barrierDismissible to dismiss the side sheet by tapping outside of it
       bool barrierDismissible: true,
+
+      /// Use barrierColor to set the outside color of the side sheet when opened
       Color barrierColor = const Color(0xFF66000000),
+
+      /// Use transitionDuration to set the duration of the animation when the side sheet is opened or closed
       Duration transitionDuration = const Duration(milliseconds: 300)}) async {
     dynamic data = await _showSheetSide(
         body: body,
