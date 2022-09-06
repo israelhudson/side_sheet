@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class SideSheet {
-  /// Open Left side sheet
+  /// Open End side sheet
   /// ```dart
-  ///onPressed: () => SideSheet.left(body: Text("Body"), context: context)
+  ///onPressed: () => SideSheet.end(body: Text("Body"), context: context)
   /// ```
-  static Future<dynamic> left(
+  static Future<dynamic> end(
       {
 
       ///Use this to pass any widget you want to display in the side sheet
@@ -27,7 +27,7 @@ class SideSheet {
     dynamic data = await _showSheetSide(
         body: body,
         width: width,
-        rightSide: false,
+        fromStart: false,
         context: context,
         barrierLabel: barrierLabel,
         barrierDismissible: barrierDismissible,
@@ -38,11 +38,11 @@ class SideSheet {
     return data;
   }
 
-  /// Open Right side sheet
+  /// Open Start side sheet
   /// ```dart
-  ///onPressed: () => SideSheet.right(body: Text("Body"), context: context)
+  ///onPressed: () => SideSheet.start(body: Text("Body"), context: context)
   /// ```
-  static Future<dynamic> right(
+  static Future<dynamic> start(
       {
 
       ///Use this to pass any widget you want to display in the side sheet
@@ -64,7 +64,7 @@ class SideSheet {
     dynamic data = await _showSheetSide(
         body: body,
         width: width,
-        rightSide: true,
+        fromStart: true,
         context: context,
         barrierLabel: barrierLabel,
         barrierDismissible: barrierDismissible,
@@ -77,7 +77,7 @@ class SideSheet {
 
   static _showSheetSide({
     required Widget body,
-    required bool rightSide,
+    required bool fromStart,
     double? width,
     required BuildContext context,
     required String barrierLabel,
@@ -93,7 +93,9 @@ class SideSheet {
       context: context,
       pageBuilder: (context, animation1, animation2) {
         return Align(
-          alignment: (rightSide ? Alignment.centerRight : Alignment.centerLeft),
+          alignment: (fromStart
+              ? AlignmentDirectional.centerStart
+              : AlignmentDirectional.centerEnd),
           child: Material(
             elevation: 15,
             color: Colors.transparent,
@@ -106,13 +108,24 @@ class SideSheet {
         );
       },
       transitionBuilder: (context, animation1, animation2, child) {
+        final isRTL = Directionality.of(context) == TextDirection.rtl;
+        final animationBeginningSide =
+            _determineAnimationBeginningSide(isRTL, fromStart);
         return SlideTransition(
           position:
-              Tween(begin: Offset((rightSide ? 1 : -1), 0), end: Offset(0, 0))
+              Tween(begin: Offset(animationBeginningSide, 0), end: Offset(0, 0))
                   .animate(animation1),
           child: child,
         );
       },
     );
+  }
+
+  static double _determineAnimationBeginningSide(
+      bool isRTL, bool sheetComesFromStart) {
+    if (isRTL && sheetComesFromStart || !isRTL && !sheetComesFromStart) {
+      return 1;
+    }
+    return -1;
   }
 }
