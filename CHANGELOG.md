@@ -1,6 +1,9 @@
 ## 1.0.4
 
-* Add border radius parameter.
+* Add sheet border radius parameter.
+* Add sheet color parameter.
+* Updated dependencies.
+* Fixed minor syntax errors.
 
 ## 1.0.3
 * Add doc.

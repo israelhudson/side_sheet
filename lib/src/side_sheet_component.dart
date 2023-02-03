@@ -13,16 +13,20 @@ class SideSheet {
 
       /// Use this to set the width of the side sheet
       double? width,
-      String barrierLabel: "Side Sheet",
+      String barrierLabel = "Side Sheet",
 
       /// Use barrierDismissible to dismiss the side sheet by tapping outside of it
-      bool barrierDismissible: true,
+      bool barrierDismissible = true,
 
       /// Use barrierColor to set the outside color of the side sheet when opened
       Color barrierColor = const Color(0xFF66000000),
 
-      /// Use barrierBorderRadius to set the outside border radius of the side sheet when opened
-      double barrierBorderRadius = 0,
+      /// Use sheetBorderRadius to set the outside border radius of the side sheet when opened
+      double sheetBorderRadius = 0,
+
+      /// Use sheetColor to set the color of the side sheet when opened
+      /// Default is white
+      Color sheetColor = Colors.white,
 
       /// Use transitionDuration to set the duration of the animation when the side sheet is opened or closed
       Duration transitionDuration = const Duration(milliseconds: 300)}) async {
@@ -34,7 +38,8 @@ class SideSheet {
       barrierLabel: barrierLabel,
       barrierDismissible: barrierDismissible,
       barrierColor: barrierColor,
-      barrierBorderRadius: barrierBorderRadius,
+      sheetBorderRadius: sheetBorderRadius,
+      sheetColor: sheetColor,
       transitionDuration: transitionDuration,
     );
     if (data == null) return '';
@@ -54,16 +59,20 @@ class SideSheet {
 
       /// Use this to set the width of the side sheet
       double? width,
-      String barrierLabel: "Side Sheet",
+      String barrierLabel = "Side Sheet",
 
       /// Use barrierDismissible to dismiss the side sheet by tapping outside of it
-      bool barrierDismissible: true,
+      bool barrierDismissible = true,
 
       /// Use barrierColor to set the outside color of the side sheet when opened
       Color barrierColor = const Color(0xFF66000000),
 
-      /// Use barrierBorderRadius to set the outside border radius of the side sheet when opened
-      double barrierBorderRadius = 0,
+      /// Use sheetBorderRadius to set the outside border radius of the side sheet when opened
+      double sheetBorderRadius = 0,
+
+      /// Use sheetColor to set the color of the side sheet when opened
+      /// Default is white
+      Color sheetColor = Colors.white,
 
       /// Use transitionDuration to set the duration of the animation when the side sheet is opened or closed
       Duration transitionDuration = const Duration(milliseconds: 300)}) async {
@@ -75,7 +84,8 @@ class SideSheet {
       barrierLabel: barrierLabel,
       barrierDismissible: barrierDismissible,
       barrierColor: barrierColor,
-      barrierBorderRadius: barrierBorderRadius,
+      sheetBorderRadius: sheetBorderRadius,
+      sheetColor: sheetColor,
       transitionDuration: transitionDuration,
     );
     if (data == null) return '';
@@ -91,9 +101,18 @@ class SideSheet {
     required String barrierLabel,
     required bool barrierDismissible,
     required Color barrierColor,
-    required double barrierBorderRadius,
+    required double sheetBorderRadius,
+    required Color sheetColor,
     required Duration transitionDuration,
   }) {
+    BorderRadius borderRadius = BorderRadius.only(
+      topLeft: rightSide ? Radius.circular(sheetBorderRadius) : Radius.zero,
+      bottomLeft: rightSide ? Radius.circular(sheetBorderRadius) : Radius.zero,
+      topRight: !rightSide ? Radius.circular(sheetBorderRadius) : Radius.zero,
+      bottomRight:
+          !rightSide ? Radius.circular(sheetBorderRadius) : Radius.zero,
+    );
+
     return showGeneralDialog(
       barrierLabel: barrierLabel,
       barrierDismissible: barrierDismissible,
@@ -106,24 +125,10 @@ class SideSheet {
           child: Material(
             elevation: 15,
             color: Colors.transparent,
+            borderRadius: borderRadius,
             child: Container(
-                color: Colors.white,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topRight: rightSide
-                        ? Radius.circular(barrierBorderRadius)
-                        : Radius.zero,
-                    bottomRight: rightSide
-                        ? Radius.circular(barrierBorderRadius)
-                        : Radius.zero,
-                    topLeft: !rightSide
-                        ? Radius.circular(barrierBorderRadius)
-                        : Radius.zero,
-                    bottomLeft: !rightSide
-                        ? Radius.circular(barrierBorderRadius)
-                        : Radius.zero,
-                  ),
-                ),
+                    color: sheetColor, borderRadius: borderRadius),
                 height: double.infinity,
                 width: width ?? MediaQuery.of(context).size.width / 1.4,
                 child: body),
