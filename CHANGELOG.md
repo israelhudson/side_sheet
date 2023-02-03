@@ -1,3 +1,7 @@
+## 1.0.4
+
+* Add border radius parameter.
+
 ## 1.0.3
 * Add doc.
 
