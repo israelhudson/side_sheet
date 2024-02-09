@@ -40,6 +40,45 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
+              ElevatedButton(
+                  onPressed: () => SideSheet.show(
+                        body: bodyWithReturnArgs(context),
+                        context: context,
+                        rightSide: false,
+                        width: 300,
+                        sheetBorderRadius: 0,
+                        sheetColor: Colors.lightBlue[100]!,
+                        onOpen: () => print("SideSheet left is open"),
+                        onClose: (data) =>
+                            print("SideSheet left is closed with data: $data"),
+                        animationCurve: Curves.fastOutSlowIn,
+                        elevation: 20.0,
+                        widthMode: SideSheetWidthMode.flexible,
+                      ),
+                  child: Text('NEW OPEN LEFT SIDE SHEET',
+                      style: TextStyle(color: Colors.purple))),
+              SizedBox(height: 10),
+
+              // /// Open Left side sheet
+              ElevatedButton(
+                  onPressed: () => SideSheet.show(
+                        body: Center(child: Text("NEW OPEN RIGHT SIDE SHEET!")),
+                        context: context,
+                        rightSide: true,
+                        width: 300,
+                        sheetBorderRadius: 20,
+                        sheetColor: Colors.pink[100]!,
+                        onOpen: () => print("SideSheet right open!"),
+                        onClose: (data) =>
+                            print("SideSheet right closed with data: $data"),
+                        animationCurve: Curves.elasticInOut,
+                        elevation: 20.0,
+                        widthMode: SideSheetWidthMode.fixed,
+                      ),
+                  child: Text('NEW OPEN RIGHT SIDE SHEET',
+                      style: TextStyle(color: Colors.purple))),
+              SizedBox(height: 10),
+
               /// Open Right side sheet
               ElevatedButton(
                   onPressed: () =>

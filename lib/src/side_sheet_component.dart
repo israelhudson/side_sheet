@@ -1,6 +1,144 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class SideSheet {
+
+  /// Open Left or Right side sheet
+  static Future<dynamic> show({
+    required Widget body,
+    required BuildContext context,
+    bool rightSide = false,
+    double? width = 300, // Valor padrão para width
+    SideSheetWidthMode widthMode = SideSheetWidthMode.fixed,
+    String barrierLabel = "Side Sheet",
+    bool barrierDismissible = true,
+    Color barrierColor = const Color(0xFF66000000),
+    double sheetBorderRadius = 0,
+    Color sheetColor = Colors.white,
+    Duration transitionDuration = const Duration(milliseconds: 300),
+    Curve animationCurve = Curves.easeInOut, // Curva de animação personalizada
+    double elevation = 15.0, // Elevation personalizável
+    // Callbacks para eventos de abrir e fechar
+    VoidCallback? onOpen,
+    Function(dynamic)? onClose, // Modificado para aceitar um parâmetro
+  }) async {
+    // Chama o callback onOpen se não for nulo
+    if (onOpen != null) onOpen();
+
+    dynamic data = await _showNewSheetSide(
+      body: body,
+      width: width,
+      widthMode: widthMode,
+      rightSide: rightSide,
+      context: context,
+      barrierLabel: barrierLabel,
+      barrierDismissible: barrierDismissible,
+      barrierColor: barrierColor,
+      sheetBorderRadius: sheetBorderRadius,
+      sheetColor: sheetColor,
+      transitionDuration: transitionDuration,
+      animationCurve: animationCurve,
+      elevation: elevation,
+    );
+
+    // Chama o callback onClose se não for nulo
+    if (onClose != null) onClose(data);
+
+    if (data == null) return '';
+
+    return data;
+  }
+
+  static Future<dynamic> _showNewSheetSide({
+    required Widget body,
+    double? width,
+    required SideSheetWidthMode widthMode,
+    required bool rightSide,
+    required BuildContext context,
+    String barrierLabel = "Side Sheet",
+    bool barrierDismissible = true,
+    Color barrierColor = const Color(0xFF66000000),
+    double sheetBorderRadius = 0,
+    Color sheetColor = Colors.white,
+    Duration transitionDuration = const Duration(milliseconds: 300),
+    Curve animationCurve = Curves.easeInOut,
+    double elevation = 15.0,
+  }) {
+    final originalWidth = width ?? 300;
+    final screenSizeWidth = MediaQuery.of(context).size.width;
+
+    return showGeneralDialog(
+      barrierLabel: barrierLabel,
+      barrierDismissible: barrierDismissible,
+      barrierColor: barrierColor,
+      transitionDuration: transitionDuration,
+      context: context,
+      pageBuilder: (context, animation1, animation2) => LayoutBuilder(
+        builder: (context, constraints) {
+          var sheetWidth = originalWidth;
+          if (widthMode == SideSheetWidthMode.flexible) {
+            sheetWidth = max(originalWidth,
+                constraints.maxWidth * (originalWidth / screenSizeWidth));
+          }
+
+          return Align(
+            alignment: rightSide ? Alignment.centerRight : Alignment.centerLeft,
+            child: Material(
+              elevation: elevation,
+              color: Colors.transparent,
+              borderRadius: BorderRadius.only(
+                topLeft: rightSide
+                    ? Radius.circular(sheetBorderRadius)
+                    : Radius.zero,
+                bottomLeft: rightSide
+                    ? Radius.circular(sheetBorderRadius)
+                    : Radius.zero,
+                topRight: !rightSide
+                    ? Radius.circular(sheetBorderRadius)
+                    : Radius.zero,
+                bottomRight: !rightSide
+                    ? Radius.circular(sheetBorderRadius)
+                    : Radius.zero,
+              ),
+              child: Container(
+                width: sheetWidth,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  color: sheetColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: rightSide
+                        ? Radius.circular(sheetBorderRadius)
+                        : Radius.zero,
+                    bottomLeft: rightSide
+                        ? Radius.circular(sheetBorderRadius)
+                        : Radius.zero,
+                    topRight: !rightSide
+                        ? Radius.circular(sheetBorderRadius)
+                        : Radius.zero,
+                    bottomRight: !rightSide
+                        ? Radius.circular(sheetBorderRadius)
+                        : Radius.zero,
+                  ),
+                ),
+                child: body,
+              ),
+            ),
+          );
+        },
+      ),
+      transitionBuilder: (context, animation1, animation2, child) {
+        return SlideTransition(
+          position: Tween(
+            begin: Offset(rightSide ? 1 : -1, 0),
+            end: Offset(0, 0),
+          ).animate(CurvedAnimation(parent: animation1, curve: animationCurve)),
+          child: child,
+        );
+      },
+    );
+  }
+
   /// Open Left side sheet
   /// ```dart
   ///onPressed: () => SideSheet.left(body: Text("Body"), context: context)
@@ -145,4 +283,9 @@ class SideSheet {
       },
     );
   }
+}
+
+enum SideSheetWidthMode {
+  fixed,
+  flexible,
 }
