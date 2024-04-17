@@ -29,7 +29,10 @@ class SideSheet {
       Color sheetColor = Colors.white,
 
       /// Use transitionDuration to set the duration of the animation when the side sheet is opened or closed
-      Duration transitionDuration = const Duration(milliseconds: 300)}) async {
+      Duration transitionDuration = const Duration(milliseconds: 300),
+
+        /// Returns empty string if the result is null (i.e dismissed or called Navigator.back with result null)
+        bool returnEmptyStringOnNull = false,}) async {
     dynamic data = await _showSheetSide(
       body: body,
       width: width,
@@ -42,7 +45,7 @@ class SideSheet {
       sheetColor: sheetColor,
       transitionDuration: transitionDuration,
     );
-    if (data == null) return '';
+    if (returnEmptyStringOnNull && data == null) return '';
 
     return data;
   }
@@ -75,7 +78,9 @@ class SideSheet {
       Color sheetColor = Colors.white,
 
       /// Use transitionDuration to set the duration of the animation when the side sheet is opened or closed
-      Duration transitionDuration = const Duration(milliseconds: 300)}) async {
+      Duration transitionDuration = const Duration(milliseconds: 300),
+      /// Returns empty string if the result is null (i.e dismissed or called Navigator.back with result null)
+      bool returnEmptyStringOnNull = false,}) async {
     dynamic data = await _showSheetSide(
       body: body,
       width: width,
@@ -88,7 +93,7 @@ class SideSheet {
       sheetColor: sheetColor,
       transitionDuration: transitionDuration,
     );
-    if (data == null) return '';
+    if (returnEmptyStringOnNull && data == null) return '';
 
     return data;
   }
