@@ -28,6 +28,10 @@ class SideSheet {
       /// Default is white
       Color sheetColor = Colors.white,
 
+      /// Use elevation to set the elevation of the side sheet
+      /// Default is 15
+      double elevation = 15,
+
       /// Use transitionDuration to set the duration of the animation when the side sheet is opened or closed
       Duration transitionDuration = const Duration(milliseconds: 300)}) async {
     dynamic data = await _showSheetSide(
@@ -41,6 +45,7 @@ class SideSheet {
       sheetBorderRadius: sheetBorderRadius,
       sheetColor: sheetColor,
       transitionDuration: transitionDuration,
+      elevation: elevation,
     );
     if (data == null) return '';
 
@@ -74,6 +79,10 @@ class SideSheet {
       /// Default is white
       Color sheetColor = Colors.white,
 
+      /// Use elevation to set the elevation of the side sheet
+      /// Default is 15
+      double elevation = 15,
+
       /// Use transitionDuration to set the duration of the animation when the side sheet is opened or closed
       Duration transitionDuration = const Duration(milliseconds: 300)}) async {
     dynamic data = await _showSheetSide(
@@ -87,6 +96,7 @@ class SideSheet {
       sheetBorderRadius: sheetBorderRadius,
       sheetColor: sheetColor,
       transitionDuration: transitionDuration,
+      elevation: elevation,
     );
     if (data == null) return '';
 
@@ -104,13 +114,13 @@ class SideSheet {
     required double sheetBorderRadius,
     required Color sheetColor,
     required Duration transitionDuration,
+    required double elevation,
   }) {
     BorderRadius borderRadius = BorderRadius.only(
       topLeft: rightSide ? Radius.circular(sheetBorderRadius) : Radius.zero,
       bottomLeft: rightSide ? Radius.circular(sheetBorderRadius) : Radius.zero,
       topRight: !rightSide ? Radius.circular(sheetBorderRadius) : Radius.zero,
-      bottomRight:
-          !rightSide ? Radius.circular(sheetBorderRadius) : Radius.zero,
+      bottomRight: !rightSide ? Radius.circular(sheetBorderRadius) : Radius.zero,
     );
 
     return showGeneralDialog(
@@ -123,12 +133,11 @@ class SideSheet {
         return Align(
           alignment: (rightSide ? Alignment.centerRight : Alignment.centerLeft),
           child: Material(
-            elevation: 15,
+            elevation: elevation,
             color: Colors.transparent,
             borderRadius: borderRadius,
             child: Container(
-                decoration: BoxDecoration(
-                    color: sheetColor, borderRadius: borderRadius),
+                decoration: BoxDecoration(color: sheetColor, borderRadius: borderRadius),
                 height: double.infinity,
                 width: width ?? MediaQuery.of(context).size.width / 1.4,
                 child: body),
@@ -137,9 +146,7 @@ class SideSheet {
       },
       transitionBuilder: (context, animation1, animation2, child) {
         return SlideTransition(
-          position:
-              Tween(begin: Offset((rightSide ? 1 : -1), 0), end: Offset(0, 0))
-                  .animate(animation1),
+          position: Tween(begin: Offset((rightSide ? 1 : -1), 0), end: Offset(0, 0)).animate(animation1),
           child: child,
         );
       },
