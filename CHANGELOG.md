@@ -1,3 +1,7 @@
+## 1.0.5
+
+* Add sheet elevation parameter.
+
 ## 1.0.4
 
 * Add sheet border radius parameter.
