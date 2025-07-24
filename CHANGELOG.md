@@ -1,3 +1,7 @@
+## 1.0.4+1
+
+* Add details on doc readme
+
 ## 1.0.4
 
 * Add sheet border radius parameter.
